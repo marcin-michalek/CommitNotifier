@@ -1,9 +1,12 @@
 package pl.michalek.marcin.commitnotifier.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import pl.michalek.marcin.commitnotifier.entity.Commit;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Marcin Michalek on 2015-05-15.
@@ -12,6 +15,7 @@ import android.preference.PreferenceManager;
 public final class Preferences {
   private static final String GCM_REGISTRATION_ID = Preferences.class.getPackage() + "GCM_REGISTRATION_ID";
   private static final String GCM_APP_VERSION = Preferences.class.getPackage() + "GCM_APP_VERSION";
+  private static final String COMMITS = Preferences.class.getPackage() + "COMMITS";
 
   private Preferences() {
   }
@@ -25,22 +29,43 @@ public final class Preferences {
         .getString(GCM_REGISTRATION_ID, "");
   }
 
-  public static int getAppVersion(Activity activity) {
-    return Preferences.from(activity)
+  public static int getAppVersion(Context context) {
+    return Preferences.from(context)
         .getInt(GCM_APP_VERSION, Integer.MIN_VALUE);
   }
 
-  public static void putRegistrationId(Activity activity, String gcmRegistrationId) {
-    Preferences.from(activity)
+  public static void putRegistrationId(Context context, String gcmRegistrationId) {
+    Preferences.from(context)
         .edit()
         .putString(GCM_REGISTRATION_ID, gcmRegistrationId)
         .apply();
   }
 
-  public static void putAppVersion(Activity activity, int appVersion) {
-    Preferences.from(activity)
+  public static void putAppVersion(Context context, int appVersion) {
+    Preferences.from(context)
         .edit()
         .putInt(GCM_APP_VERSION, appVersion)
+        .apply();
+  }
+
+  public static void save(Context context, Commit commit) {
+    SharedPreferences sharedPreferences = Preferences.from(context);
+    Set<String> commits = sharedPreferences
+        .getStringSet(COMMITS, new HashSet<String>());
+    removeCommits(context);
+    if (commits != null) {
+      commits.add(commit.toJson());
+      sharedPreferences
+          .edit()
+          .putStringSet(COMMITS, commits)
+          .apply();
+    }
+  }
+
+  public static void removeCommits(Context context) {
+    Preferences.from(context)
+        .edit()
+        .remove(COMMITS)
         .apply();
   }
 }
