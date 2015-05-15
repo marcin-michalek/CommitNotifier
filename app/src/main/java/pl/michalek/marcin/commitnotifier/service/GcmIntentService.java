@@ -14,7 +14,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import pl.michalek.marcin.commitnotifier.R;
-import pl.michalek.marcin.commitnotifier.activity.MainActivity;
+import pl.michalek.marcin.commitnotifier.activity.FragmentContainerActivity;
 import pl.michalek.marcin.commitnotifier.receiver.GcmBroadcastReceiver;
 
 public class GcmIntentService extends IntentService {
@@ -41,7 +41,7 @@ public class GcmIntentService extends IntentService {
   }
 
   private void displayNotification(String displayedMessage) {
-    Intent startMainActivityIntent = new Intent(this, MainActivity.class);
+    Intent startMainActivityIntent = new Intent(this, FragmentContainerActivity.class);
     // put commit data
 //    startMainActivityIntent.putExtra(Constants.START_ACTIVITY_AFTER_NOTIFICATION_CLICKED, MyCarePlanActivity.class.getName());
     PendingIntent contentIntent = PendingIntent.getActivity(this, 0, startMainActivityIntent, 0);
