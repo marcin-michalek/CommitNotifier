@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import pl.michalek.marcin.commitnotifier.entity.Commit;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -67,5 +69,17 @@ public final class Preferences {
         .edit()
         .remove(COMMITS)
         .apply();
+  }
+
+  public static List<Commit> getCommits(Context context) {
+    Set<String> commitSet = Preferences.from(context)
+        .getStringSet(COMMITS, new HashSet<String>());
+    List<Commit> commitList = new ArrayList<>();
+    if (commitSet != null) {
+      for (String commitJson : commitSet) {
+        commitList.add(Commit.from(commitJson));
+      }
+    }
+    return commitList;
   }
 }
