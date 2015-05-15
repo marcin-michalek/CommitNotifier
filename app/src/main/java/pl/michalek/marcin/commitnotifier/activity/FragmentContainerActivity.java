@@ -40,8 +40,17 @@ public class FragmentContainerActivity extends BaseActivity implements ContentRe
 
   public void replaceFragment(Fragment fragment) {
     getSupportFragmentManager().beginTransaction()
+        .setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out, R.anim.abc_fade_in, R.anim.abc_fade_out)
         .replace(R.id.container, fragment)
-        .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+        .commit();
+  }
+
+  @Override
+  public void replaceFragment(Fragment fragment, String backStack) {
+    getSupportFragmentManager().beginTransaction()
+        .setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out, R.anim.abc_fade_in, R.anim.abc_fade_out)
+        .replace(R.id.container, fragment)
+        .addToBackStack(backStack)
         .commit();
   }
 

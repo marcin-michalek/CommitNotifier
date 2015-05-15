@@ -23,6 +23,7 @@ public class CommitListFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_recycler_view, container, false);
+    view.setBackgroundColor(getResources().getColor(R.color.commit_list_background));
     ButterKnife.inject(this, view);
     return view;
   }

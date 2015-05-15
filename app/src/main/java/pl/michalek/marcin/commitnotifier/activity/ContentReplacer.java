@@ -9,5 +9,7 @@ import android.support.v4.app.Fragment;
 public interface ContentReplacer {
   void replaceFragment(Fragment fragment);
 
+  void replaceFragment(Fragment fragment, String addToBackStack);
+
   void showFragment(String fragmentName);
 }
