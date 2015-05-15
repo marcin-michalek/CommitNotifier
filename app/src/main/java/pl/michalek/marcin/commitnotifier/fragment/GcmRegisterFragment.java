@@ -17,6 +17,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import pl.michalek.marcin.commitnotifier.R;
 import pl.michalek.marcin.commitnotifier.activity.BaseActivity;
+import pl.michalek.marcin.commitnotifier.activity.ContentReplacer;
 import pl.michalek.marcin.commitnotifier.config.Constants;
 import pl.michalek.marcin.commitnotifier.utils.Preferences;
 
@@ -55,6 +56,10 @@ public class GcmRegisterFragment extends BaseFragment {
     return view;
   }
 
+  private void setRegistrationSuccess() {
+    ((ContentReplacer) getActivity()).replaceFragment(new CommitListFragment());
+  }
+
   //  GCM METHODS
   private void checkIfGooglePlayServicesAreAvailable(Activity activity) {
     int googlePlayServicesResponseCode;
@@ -67,7 +72,7 @@ public class GcmRegisterFragment extends BaseFragment {
       registerInBackground(activity);
     } else {
       Log.d(Constants.LOG_TAG, "Device registered, will now collect login information");
-      setRegistrationSuccess(activity);
+      setRegistrationSuccess();
     }
   }
 
@@ -107,14 +112,9 @@ public class GcmRegisterFragment extends BaseFragment {
     activity.runOnUiThread(new Runnable() {
       @Override
       public void run() {
-        setRegistrationSuccess(activity);
+        setRegistrationSuccess();
       }
     });
-  }
-
-  private void setRegistrationSuccess(Activity activity){
-    progressBar.setVisibility(View.GONE);
-    infoTextView.setText(activity.getString(R.string.success));
   }
 
   private static int getAppVersion(Activity activity) {

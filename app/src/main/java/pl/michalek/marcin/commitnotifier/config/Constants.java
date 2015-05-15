@@ -10,5 +10,4 @@ public final class Constants {
 
   public static final String GCM_SENDER_ID = "780464642035";
   public static final String LOG_TAG = "CommitNotifier";
-
 }

@@ -12,7 +12,9 @@ import pl.michalek.marcin.commitnotifier.fragment.GcmRegisterFragment;
  * Created by Marcin Michalek on 2015-05-15.
  * File belongs to project SendIt!
  */
-public class FragmentContainerActivity extends BaseActivity {
+public class FragmentContainerActivity extends BaseActivity implements ContentReplacer {
+  private static final String SHOW_FRAGMENT = FragmentContainerActivity.class.getPackage() + "SHOW_FRAGMENT";
+
   @InjectView(R.id.container)
   FrameLayout container;
 
@@ -24,10 +26,14 @@ public class FragmentContainerActivity extends BaseActivity {
     replaceFragment(new GcmRegisterFragment());
   }
 
-  protected void replaceFragment(Fragment fragment) {
+  public void replaceFragment(Fragment fragment) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.container, fragment)
         .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
         .commit();
+  }
+
+  public void showFragment(String fragmentName) {
+    replaceFragment(Fragment.instantiate(this, fragmentName));
   }
 }
