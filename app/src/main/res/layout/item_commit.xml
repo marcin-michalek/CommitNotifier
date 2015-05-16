@@ -32,6 +32,12 @@
                 android:id="@+id/authorTextView"
                 style="@style/AppTheme.CommitTextView" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/separator_height"
+                android:background="@color/material_blue_grey_800"
+                android:layout_margin="@dimen/padding_small"/>
+
             <TextView
                 android:id="@+id/nameTextView"
                 style="@style/AppTheme.CommitTextView" />
