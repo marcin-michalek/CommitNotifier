@@ -74,9 +74,9 @@ public class FragmentContainerActivity extends BaseActivity implements ContentRe
     switch (item.getItemId()) {
       case R.id.action_settings:
         new AlertDialog.Builder(this)
-            .setTitle("GCM Registration Id")
+            .setTitle(getString(R.string.gcm_registration_id))
             .setMessage(Preferences.getGcmRegistrationId(this))
-            .setNeutralButton("Roger that!", new DialogInterface.OnClickListener() {
+            .setNeutralButton(getString(R.string.roger_that), new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">CommitNotifier</string>
-
     <string name="hello_world">Hello world!</string>
     <string name="action_registration_id">Registration ID</string>
     <string name="register_in_gcm">Registering in Google Cloud Messaging</string>
     <string name="success">Success!</string>
+    <string name="gcm_registration_id">GCM Registration Id</string>
+    <string name="roger_that">Roger that!</string>
 </resources>
