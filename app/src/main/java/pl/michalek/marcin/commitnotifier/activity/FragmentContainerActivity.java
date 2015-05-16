@@ -1,7 +1,11 @@
 package pl.michalek.marcin.commitnotifier.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -56,5 +60,33 @@ public class FragmentContainerActivity extends BaseActivity implements ContentRe
 
   public void showFragment(String fragmentName) {
     replaceFragment(Fragment.instantiate(this, fragmentName));
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_settings, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle item selection
+    switch (item.getItemId()) {
+      case R.id.action_settings:
+        new AlertDialog.Builder(this)
+            .setTitle("GCM Registration Id")
+            .setMessage(Preferences.getGcmRegistrationId(this))
+            .setNeutralButton("Roger that!", new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+              }
+            })
+            .create()
+            .show();
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
+    }
   }
 }

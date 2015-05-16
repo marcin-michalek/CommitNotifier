@@ -2,7 +2,7 @@
     <string name="app_name">CommitNotifier</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_registration_id">Registration ID</string>
     <string name="register_in_gcm">Registering in Google Cloud Messaging</string>
     <string name="success">Success!</string>
 </resources>
