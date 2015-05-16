@@ -4,5 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="item_commit_image_width_height">60dp</dimen>
     <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_small_top_bottom">@dimen/padding_small_top_bottom</dimen>
     <dimen name="separator_height">1dp</dimen>
 </resources>

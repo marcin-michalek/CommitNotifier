@@ -16,6 +16,7 @@ import pl.michalek.marcin.commitnotifier.entity.Commit;
 import pl.michalek.marcin.commitnotifier.fragment.CommitDetailsFragment;
 import pl.michalek.marcin.commitnotifier.utils.Preferences;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,6 +47,8 @@ public class CommitListAdapter extends RecyclerView.Adapter<CommitListAdapter.Vi
     Commit commit = data.get(position);
     viewHolder.authorTextView.setText(commit.getAuthor());
     viewHolder.nameTextView.setText(commit.getName());
+    viewHolder.statusTextView.setText(commit.getStatus());
+    viewHolder.timeTextView.setText(new Date(commit.getTimestamp()).toString());
     imageLoader.displayImage("drawable://" + R.drawable.commit, viewHolder.commitPicture);
   }
 
@@ -66,6 +69,12 @@ public class CommitListAdapter extends RecyclerView.Adapter<CommitListAdapter.Vi
 
     @InjectView(R.id.commitPicture)
     ImageView commitPicture;
+
+    @InjectView(R.id.statusTextView)
+    TextView statusTextView;
+
+    @InjectView(R.id.timeTextView)
+    TextView timeTextView;
 
     public ViewHolder(View itemView) {
       super(itemView);

@@ -15,7 +15,6 @@ import pl.michalek.marcin.commitnotifier.fragment.GcmRegisterFragment;
 import pl.michalek.marcin.commitnotifier.utils.Preferences;
 
 import java.util.Date;
-import java.util.Random;
 
 /**
  * Created by Marcin Michalek on 2015-05-15.
@@ -36,7 +35,9 @@ public class FragmentContainerActivity extends BaseActivity implements ContentRe
     //@TODO remove after testing
     Commit commit = new Commit();
     commit.setAuthor("marcin");
-    commit.setName(String.valueOf(new Random(new Date().getTime()).nextInt()));
+    commit.setName("commit name");
+    commit.setTimestamp(new Date().getTime());
+    commit.setStatus("status");
     Preferences.save(this, commit);
 
     replaceFragment(new GcmRegisterFragment());
