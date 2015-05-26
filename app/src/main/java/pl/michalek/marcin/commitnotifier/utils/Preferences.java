@@ -5,10 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import pl.michalek.marcin.commitnotifier.entity.Commit;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Marcin Michalek on 2015-05-15.
@@ -80,6 +77,8 @@ public final class Preferences {
         commitList.add(Commit.from(commitJson));
       }
     }
+
+    Collections.sort(commitList);
     return commitList;
   }
 }
