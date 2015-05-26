@@ -11,9 +11,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import pl.michalek.marcin.commitnotifier.R;
-import pl.michalek.marcin.commitnotifier.activity.ContentReplacer;
 import pl.michalek.marcin.commitnotifier.entity.Commit;
-import pl.michalek.marcin.commitnotifier.fragment.CommitDetailsFragment;
 import pl.michalek.marcin.commitnotifier.utils.Preferences;
 
 import java.util.Date;
@@ -86,7 +84,7 @@ public class CommitListAdapter extends RecyclerView.Adapter<CommitListAdapter.Vi
     public void onClick(View v) {
       Commit commit = data.get(getAdapterPosition());
       //@TODO add commit to details
-      ((ContentReplacer) context).replaceFragment(new CommitDetailsFragment(), "history");
+      //((ContentReplacer) context).replaceFragment(new CommitDetailsFragment(), "history");
     }
   }
 }

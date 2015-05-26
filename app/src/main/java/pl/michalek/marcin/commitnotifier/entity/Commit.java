@@ -7,6 +7,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 
 public class Commit implements Comparable<Commit> {
+  public static final String FIELD_AUTHOR = "author";
+  public static final String FIELD_NAME = "name";
+  public static final String FIELD_TIMESTAMP = "date";
+  public static final String FIELD_STATUS = "status";
+
   @Expose
   private String author;
 
@@ -20,9 +25,19 @@ public class Commit implements Comparable<Commit> {
   private String status;
 
   public static Commit from(Bundle extras) {
-    //parse and init commit
-    //@TODO
-    return new Commit();
+    return new Commit(
+        String.valueOf(extras.get(FIELD_AUTHOR)),
+        String.valueOf(extras.get(FIELD_NAME)),
+        Long.parseLong(String.valueOf(extras.get(FIELD_TIMESTAMP))),
+        String.valueOf(extras.get(FIELD_STATUS))
+    );
+  }
+
+  public Commit(String author, String name, long timestamp, String status) {
+    this.author = author;
+    this.name = name;
+    this.timestamp = timestamp;
+    this.status = status;
   }
 
   public static Commit from(String json) {

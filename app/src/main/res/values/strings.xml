@@ -6,4 +6,7 @@
     <string name="success">Success!</string>
     <string name="gcm_registration_id">GCM Registration Id</string>
     <string name="roger_that">Roger that!</string>
+    <string name="new_commit">New commit</string>
+    <string name="label_registration_id">Registration id</string>
+    <string name="copied_to_clipboard">Copied to clipboard!</string>
 </resources>

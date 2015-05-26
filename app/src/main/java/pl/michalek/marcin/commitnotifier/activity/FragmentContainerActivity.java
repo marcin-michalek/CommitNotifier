@@ -1,20 +1,21 @@
 package pl.michalek.marcin.commitnotifier.activity;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import pl.michalek.marcin.commitnotifier.R;
-import pl.michalek.marcin.commitnotifier.entity.Commit;
 import pl.michalek.marcin.commitnotifier.fragment.GcmRegisterFragment;
 import pl.michalek.marcin.commitnotifier.utils.Preferences;
-
-import java.util.Date;
 
 /**
  * Created by Marcin Michalek on 2015-05-15.
@@ -31,15 +32,6 @@ public class FragmentContainerActivity extends BaseActivity implements ContentRe
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_fragment_container);
     ButterKnife.inject(this);
-
-    //@TODO remove after testing
-    Commit commit = new Commit();
-    commit.setAuthor("marcin");
-    commit.setName("commit name");
-    commit.setTimestamp(new Date().getTime());
-    commit.setStatus("status");
-    Preferences.save(this, commit);
-
     replaceFragment(new GcmRegisterFragment());
   }
 
@@ -76,7 +68,7 @@ public class FragmentContainerActivity extends BaseActivity implements ContentRe
       case R.id.action_settings:
         new AlertDialog.Builder(this)
             .setTitle(getString(R.string.gcm_registration_id))
-            .setMessage(Preferences.getGcmRegistrationId(this))
+            .setView(getSelectableTextView())
             .setNeutralButton(getString(R.string.roger_that), new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialog, int which) {
@@ -89,5 +81,25 @@ public class FragmentContainerActivity extends BaseActivity implements ContentRe
       default:
         return super.onOptionsItemSelected(item);
     }
+  }
+
+  private TextView getSelectableTextView() {
+    TextView textView = new TextView(this);
+    textView.setText(Preferences.getGcmRegistrationId(this));
+    int textViewPadding = (int) getResources().getDimension(R.dimen.aler_dialog_content_padding);
+    textView.setPadding(textViewPadding, textViewPadding, textViewPadding, textViewPadding);
+    textView.setOnLongClickListener(new View.OnLongClickListener() {
+      @Override
+      public boolean onLongClick(View view) {
+        ((ClipboardManager) getSystemService(CLIPBOARD_SERVICE))
+            .setPrimaryClip(ClipData.newPlainText(
+                getString(R.string.label_registration_id),
+                ((TextView) view).getText().toString()
+            ));
+        return true;
+      }
+    });
+
+    return textView;
   }
 }

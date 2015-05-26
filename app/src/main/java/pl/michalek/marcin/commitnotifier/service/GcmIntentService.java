@@ -25,7 +25,6 @@ public class GcmIntentService extends IntentService {
 
   public GcmIntentService() {
     super("GcmIntentService");
-    notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
   }
 
   @Override
@@ -45,6 +44,10 @@ public class GcmIntentService extends IntentService {
   }
 
   private void displayNotification(Commit commit) {
+    if (notificationManager == null) {
+      notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+    }
+
     Intent startMainActivityIntent = new Intent(this, FragmentContainerActivity.class);
     // put commit data
 //    startMainActivityIntent.putExtra(Constants.START_ACTIVITY_AFTER_NOTIFICATION_CLICKED, MyCarePlanActivity.class.getName());
@@ -53,14 +56,14 @@ public class GcmIntentService extends IntentService {
     NotificationCompat.Builder notificationBuilder =
         new NotificationCompat.Builder(this)
             .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle("titile")
+            .setContentTitle(getString(R.string.new_commit))
             .setAutoCancel(true)
             .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
             .setStyle(new NotificationCompat.BigTextStyle()
-                .bigText(""))
-            .setTicker("")
+                .bigText(commit.getName()))
+            .setTicker(commit.getName())
             .setVibrate(new long[]{1000, 1000, 2000})
-            .setContentText("");
+            .setContentText(commit.getName());
 
     notificationBuilder.setContentIntent(contentIntent);
     notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
