@@ -2,4 +2,9 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="item_commit_image_width_height">60dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_small_top_bottom">@dimen/padding_small_top_bottom</dimen>
+    <dimen name="separator_height">1dp</dimen>
+    <dimen name="aler_dialog_content_padding">8dp</dimen>
 </resources>
