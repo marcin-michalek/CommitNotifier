@@ -1,9 +1,8 @@
 package pl.michalek.marcin.commitnotifier.activity;
 
 import android.app.AlertDialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
@@ -91,15 +90,19 @@ public class FragmentContainerActivity extends BaseActivity implements ContentRe
     textView.setOnLongClickListener(new View.OnLongClickListener() {
       @Override
       public boolean onLongClick(View view) {
-        ((ClipboardManager) getSystemService(CLIPBOARD_SERVICE))
-            .setPrimaryClip(ClipData.newPlainText(
-                getString(R.string.label_registration_id),
-                ((TextView) view).getText().toString()
-            ));
+        startSendRegistrationIdInEmailIntent(Preferences.getGcmRegistrationId(FragmentContainerActivity.this));
         return true;
       }
     });
 
     return textView;
+  }
+
+  private void startSendRegistrationIdInEmailIntent(String registrationId) {
+    Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+    emailIntent.setType("plain/text");
+    emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string.gcm_registration_id));
+    emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, registrationId);
+    startActivity(emailIntent);
   }
 }
